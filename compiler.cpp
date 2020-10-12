@@ -370,7 +370,7 @@ void compiler(){
         i = pointer;
 
         if(symbol == Unknown){
-            printf(" wrong word\n");
+            //printf(" wrong word\n");
             break;
         }
     }
