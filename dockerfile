@@ -1,5 +1,5 @@
-FROM g++:8.1.0
+FROM gcc:10
 WORKDIR ./
 COPY ./* ./
-RUN g++ -o compiler compiler.cpp 
+RUN gcc -o compiler compiler.cpp -lstdc++
 RUN chmod +x compiler
