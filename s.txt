@@ -1,7 +1,29 @@
-BEGIN IF * +
-begin
-023
-260
-2B
-B2
-/
+BEGIN
+BEGIN
+x
+,
+,
+NUMBER
+y
+,
+,
+NUMBER
+THEN
+THEN
+x
+,
+:=
+x ++2**5
+IF
+IF
+(x)THEN
+THEN
+y,:=
+0
+ELSE
+ELSE x,:=
+0END
+END
+?
+END
+END

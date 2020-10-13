@@ -226,9 +226,11 @@ int getsym(){
         readChar();
         if(isEqu(read))
             symbol = Assign;        //赋值符号
-        else
+        else{
             retract();
-        symbol = Colon;
+            symbol = Colon;
+        }
+            
     }
     else if(isPlus(read)){
         symbol = Plus;
