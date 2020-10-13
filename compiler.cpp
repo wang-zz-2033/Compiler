@@ -22,9 +22,9 @@ enum identify
     Int,
     Colon,
     Plus,
-    Minus,
+    //Minus,
     Star,
-    Divi,
+   // Divi,
     Comma,
     LParenthesis,
     RParenthesis,
@@ -58,7 +58,7 @@ bool isSpace(char s){            // 1. 是否是string类型 2. “\n” 还是 
 }
 
 bool isNewline(char s){
-	if(s == '\n')
+	if(s == '\n'||s=='\r')
 		return true;
 	else
 		return false;
@@ -121,12 +121,12 @@ bool isPlus(char s){ // +
 		return false;
 }
 
-bool isMinus(char s){ // -
-	if(s == '-')
-		return true;
-	else
-		return false;
-}
+// bool isMinus(char s){ // -
+// 	if(s == '-')
+// 		return true;
+// 	else
+// 		return false;
+// }
 
 bool isDivi(char s){ // /
 	if(s == '/')
@@ -233,9 +233,9 @@ int getsym(){
     else if(isPlus(read)){
         symbol = Plus;
     }
-    else if(isMinus(read)){
-        symbol = Minus;
-    }
+    // else if(isMinus(read)){
+    //     symbol = Minus;
+    // }
     else if(isStar(read)){
         symbol = Star;
     }
@@ -268,7 +268,8 @@ int getsym(){
             } while (!isStar(read));
         }
         retract();
-        symbol = Divi;
+        //symbol = Divi;
+        symbol = Unknown;
     }
     else
         error();      //程序不继续分析
@@ -319,18 +320,18 @@ void printsym(){
             printf("Plus \n");
             break;
         }
-        case Minus:{
-            printf("Minus \n");
-            break;
-        }
+        // case Minus:{
+        //     printf("Minus \n");
+        //     break;
+        // }
         case Star:{
             printf("Star \n");
             break;
         }
-        case Divi:{
-            printf("Divi \n");
-            break;
-        }
+        // case Divi:{
+        //     printf("Divi \n");
+        //     break;
+        // }
         case Comma:{
             printf("Comma \n");
             break;
@@ -359,15 +360,21 @@ void printsym(){
             break;
         }
             
-        default:break;
+        //default:break;
+        default:{
+            printf("Unknown \n");
+            break;
+        }
     }
 }
 
 void compiler(){
-    for (int i = 0; i < length;){
+    //for (int i = 0; /*i < length*/ reading[i] != '\0';)//???????????
+    while(reading[pointer] != '\0'){
+        //read = reading[i++];
         getsym();
         printsym();
-        i = pointer;
+        //i = pointer;
 
         if(symbol == Unknown){
             //printf(" wrong word\n");
@@ -376,23 +383,29 @@ void compiler(){
     }
 }
 
-int main(){
+int main(int argc,char *argv[]){
     char w;
     //int i, j;
-    freopen("s.txt","r",stdin);
-    freopen("result.txt","w",stdout); //从控制台输出，而不是文本输出
+    FILE *input = fopen(argv[1]/*"s.txt"*/, "rb");
+    // freopen("s.txt","r",stdin);
+    // freopen("result.txt","w",stdout); //从控制台输出，而不是文本输出
 
     length=0;
-    while(cin.get(w)){ 
-        //if(w!=' '){
-            reading[length]=w;
-            length++;
-        //}     
-    }
-
+    fread(reading, sizeof(char), 10000, input);
+    //length = ?
+    // w = fgetc(input);
+    // while(/*cin.get(w)*/w!=EOF){ 
+    //     //if(w!=' '){
+    //         reading[length]=w;
+    //         length++;
+    //         w = fgetc(input);
+    //     //}     
+    // }
+    //g++ -o compiler compiler.cpp
     compiler(); //读文件
 
-    fclose(stdin);//关闭文件 
-    fclose(stdout);//关闭文件 
+    fclose(input);
+    // fclose(stdin);//关闭文件 
+    // fclose(stdout);//关闭文件 
     return 0;
 }
